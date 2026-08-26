@@ -31,17 +31,10 @@ int main() {
       for (int i = 0; i < Num; ++i) {
           std::cout<<signals[i]<<" ";
       }
-
-    //this is what the code should do
-    for (int i = (Num); i >= 0; --i) {
-        if (i <= maxIndex) {
-            std::cout<<signals[i]<<" ";
-        }
-    }
     std::cout<<std::endl;
     recursiveFunctionBackward(signals,maxIndex);
     std::cout<<std::endl;
-    std::cout<<"Cont #: "<<count<<std::endl;
+    std::cout<<"number of recursive calls: "<<count<<std::endl;
 
     return 0;
 }
@@ -55,22 +48,19 @@ int recursiveFunctionForward(int arr[],int max)
     {
         recursiveFunctionForward(arr,max-1);
         std::cout<<arr[max]<<" ";
-        count++;
     }
     //base case
     return count;
 }
 int recursiveFunctionBackward(int arr[],int Val)
 {
-    //base case
-    //if (n <= 0)
-    if (Val == 0)
-    {
-        return count;
-    }
     //recursive case
-    recursiveFunctionBackward(arr,Val-1);
-    std::cout<<arr[Val]<<" ";
-    count++;
-
+    if (Val >= 0)
+    {
+        std::cout<<arr[Val]<<" ";
+        recursiveFunctionBackward(arr,Val-1);
+        count++;
+    }
+    //base case
+    return 0;
 }
