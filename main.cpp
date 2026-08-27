@@ -1,5 +1,7 @@
 #include <iostream>
 #include <limits>
+#include <utility>
+
 template <typename T>
 T templateInput()
 {
@@ -38,13 +40,29 @@ void recFuncBack(int arr[],int Val)
     ++count;
 }
 
+void sortArray(int arr[], int size)
+{
+    for (int i = 0; i < size - 1; ++i)
+    {
+        int minIdx = i;
+        for (int j = i + 1; j < size; ++j)
+        {
+            if (arr[j] < arr[minIdx])
+                minIdx = j;
+        }
+        std::swap(arr[minIdx], arr[i]);
+    }
+}
+
 int main()
 {
     //variables for input
     const int MAX_SIZE = 10;
     int signals[MAX_SIZE];
     int Num;
-    int maxVal, maxIndex;
+    int maxVal;
+    int maxIndex = 0;
+
     //prompt the user for input for the appropriate size of the signal array
     std::cout<<"Enter number of signals that will be input"<<std::endl;
     Num = templateInput<int>();
@@ -66,16 +84,21 @@ int main()
     }
     //prints out the strongest signal in the array
     std::cout<<"Strongest signal: "<<maxVal<<" at index "<<maxIndex<<std::endl;
+    // sort into a separate array
+    int sortedSignals[MAX_SIZE];
+    for (int i = 0; i < Num; ++i)
+        sortedSignals[i] = signals[i];
+    sortArray(sortedSignals, Num);
     //prints out the array from the start of the array to the strongest signal
     std::cout<<"Forward path (start to strongest)"<<std::endl;
     for (int i = 0; i < Num; ++i)
     {
-        std::cout<<signals[i]<<" ";
+        std::cout<<sortedSignals[i]<<" ";
     }
     std::cout<<std::endl;
     //prints out the path from the strongest signal to the start
     std::cout<<"Return path (backtracking):"<<std::endl;
-    recFuncBack(signals,Num-1);
+    recFuncBack(sortedSignals,Num-1);
     std::cout<<std::endl<<"Recursive calls made: "<<count<<std::endl;
     return 0;
 }
