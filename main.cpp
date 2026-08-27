@@ -31,7 +31,7 @@ int count = 0;
 void recFuncBack(int arr[],int Val)
 {
     //base case, checks to see if the Value is negative
-    if (Val < 0) return;
+    if (Val < 0.0) return;
     //recursive case that prints out the values and increases the count by one
     std::cout<<arr[Val]<<" ";
     recFuncBack(arr,Val-1);
