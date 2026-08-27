@@ -1,5 +1,31 @@
 #include <iostream>
-int recursiveFunctionBackward(int arr[],int Val);
+#include <limits>
+template <typename T>
+T templateInput()
+{
+    T tInput;
+    bool validInput = false;
+    //as long as the user has not entered a valid input
+    while (!validInput)
+    {
+        //input validation for the number
+        std::cin >> tInput;
+        //if the user does not enter a number, prompt the user to enter the correct information
+        if (std::cin.fail())
+        {
+            std::cout<< "enter in a numeric value:"<< std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        }
+        //if the user enters the correct information exit the loop
+        else
+        {
+            validInput = true;
+        }
+    }
+    //return user input
+    return tInput;
+}
 int count = 0;
 
 void recFuncBack(int arr[],int Val) {
@@ -17,11 +43,11 @@ int main() {
     int maxVal, maxIndex;
 
     std::cout<<"Enter number of signals that will be input"<<std::endl;
-    std::cin>>Num;
+    Num = templateInput<int>();
 
     for (int i = 0; i < Num; ++i) {
         std::cout<<"Enter signal: "<<std::endl;
-        std::cin>>signals[i];
+        signals[i] = templateInput<int>();
     }
 
     maxVal = signals[0];
